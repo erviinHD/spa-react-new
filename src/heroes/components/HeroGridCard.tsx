@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router";
+
 import { ArrowRight, Heart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,9 +11,14 @@ interface Props {
 }
 
 export const HeroGridCard = ({ hero }: Props) => {
+  const navigate = useNavigate();
+  const handleClick = async () => {
+    await navigate(`/heroes/${hero.slug}`);
+  };
+
   return (
     <Card className="hero-card group overflow-hidden rounded-none border-border/80 bg-card p-0">
-      <div className={`hero-image `}>
+      <div className="hero-image">
         <img src={hero.image} alt={`${hero.alias}, ${hero.name}`} />
         <div className="image-shade" />
         <Badge
@@ -83,7 +90,7 @@ export const HeroGridCard = ({ hero }: Props) => {
             Primera Aparición: {hero.firstAppearance}
           </span>
 
-          <button className="card-link">
+          <button className="card-link" onClick={handleClick}>
             Ver perfil <ArrowRight size={15} />
           </button>
         </div>

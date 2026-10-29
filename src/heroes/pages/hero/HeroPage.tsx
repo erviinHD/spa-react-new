@@ -1,8 +1,12 @@
+import { useParams } from "react-router";
 import { CustomJumbotron } from "@/components/custom/CustomJumbotron";
 import { HeroGrid } from "@/heroes/components/HeroGrid";
 import { HeroStats } from "@/heroes/components/HeroStats";
 
 export const HeroPage = () => {
+  const { idSlug = "" } = useParams();
+  console.log({ idSlug });
+
   return (
     <>
       {/* Header */}
@@ -18,8 +22,10 @@ export const HeroPage = () => {
         </div>
       </section>
 
+      {/* Grid */}
+
       <section className="directory-section" aria-label="Hero directory">
-        <HeroGrid />
+        <HeroGrid heroes={[]} key={idSlug} />
       </section>
     </>
   );
