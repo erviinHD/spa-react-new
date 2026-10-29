@@ -49,7 +49,9 @@ export const HeroGridCard = ({ hero }: Props) => {
       </div>
 
       <CardContent className="hero-card-body pt-0!">
-        <p className="card-description mt-0!">{hero.description}</p>
+        <p className="card-description mt-0! line-clamp-3">
+          {hero.description}
+        </p>
 
         <div className="flex items-center justify-between gap-3">
           <span className="label">HABILIDADES</span>
