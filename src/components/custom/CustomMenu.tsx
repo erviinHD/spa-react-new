@@ -1,4 +1,4 @@
-import { Plus, Swords } from "lucide-react";
+import { Swords } from "lucide-react";
 import { Link, useLocation } from "react-router";
 
 export const CustomMenu = () => {
