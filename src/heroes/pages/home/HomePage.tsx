@@ -13,13 +13,13 @@ export const HomePage = () => {
     "all" | "favorites" | "heroes" | "villians"
   >("all");
 
-  const { data } = useQuery({
+  const { data: heroesResponse } = useQuery({
     queryKey: ["heroes"],
     queryFn: () => getHeroesByPageAction(),
     staleTime: 1000 * 60 * 5, //5min
   });
 
-  console.log({ data });
+  console.log({ heroesResponse });
 
   // useEffect(() => {
   //   getHeroesByPage().then();
@@ -66,7 +66,7 @@ export const HomePage = () => {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="all">
-              <HeroGrid />
+              <HeroGrid heroes={heroesResponse?.heroes ?? []} />
             </TabsContent>
             <TabsContent value="favorites">
               Make changes to your account here.

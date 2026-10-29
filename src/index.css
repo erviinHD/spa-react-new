@@ -367,13 +367,6 @@ h1 em,
   text-transform: uppercase;
 }
 
-.status-pill span {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #27d7df;
-}
-
 .rank-mark {
   position: absolute;
   right: 13px;
@@ -453,7 +446,6 @@ h1 em,
   flex-direction: column;
   gap: 9px;
   padding: 17px 0 14px;
-  border-bottom: 1px solid #29333d;
 }
 
 .stat-row {

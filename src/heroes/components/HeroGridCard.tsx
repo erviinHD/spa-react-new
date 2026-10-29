@@ -2,30 +2,31 @@ import { ArrowRight, Heart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
-export type Hero = {
-  name: string;
-  alias: string;
-  power: string;
-  className: string;
-  color: string;
-  image: string;
-  description: string;
-  stats: { label: string; value: number }[];
-};
+import type { Hero } from "../types/hero.interface";
 
-export const HeroGridCard = ({ hero }: { hero: Hero }) => {
+interface Props {
+  hero: Hero;
+}
+
+export const HeroGridCard = ({ hero }: Props) => {
   return (
     <Card className="hero-card group overflow-hidden rounded-none border-border/80 bg-card p-0">
-      <div className={`hero-image hero-image-${hero.color}`}>
+      <div className={`hero-image `}>
         <img src={hero.image} alt={`${hero.alias}, ${hero.name}`} />
         <div className="image-shade" />
         <Badge
           variant="secondary"
           className="status-pill rounded-none border-0"
         >
-          <span /> Active
+          <span
+            className={`w-1.5 h-1.5 rounded-full ${hero.status === "Active" ? "bg-[#27d7df]" : "bg-gray-400"}`}
+          />
+          {hero.status}
         </Badge>
-        <span className="rank-mark">A-07</span>
+
+        <span className="rank-mark font-black! bg-mist-800 p-1 opacity-85">
+          {hero.universe.toLocaleUpperCase()}
+        </span>
         <button
           className="favorite-button"
           aria-label={`Favorite ${hero.alias}`}
@@ -33,31 +34,59 @@ export const HeroGridCard = ({ hero }: { hero: Hero }) => {
           <Heart size={16} />
         </button>
         <div className="hero-card-copy">
-          <p className="eyebrow">{hero.className}</p>
           <h3>{hero.alias}</h3>
-          <p>{hero.name}</p>
+          <p>
+            {hero.name} - ({hero.team})
+          </p>
         </div>
       </div>
-      <CardContent className="hero-card-body p-4">
+
+      <CardContent className="hero-card-body pt-0!">
+        <p className="card-description mt-0!">{hero.description}</p>
+
         <div className="flex items-center justify-between gap-3">
-          <span className="label">ABILITY</span>
-          <span className="ability">{hero.power}</span>
+          <span className="label">HABILIDADES</span>
+          <span className="ability">{hero.category}</span>
         </div>
         <div className="stat-list">
-          {hero.stats.map((stat) => (
-            <div className="stat-row" key={stat.label}>
-              <span>{stat.label}</span>
-              <div className="stat-track">
-                <span style={{ width: `${stat.value}%` }} />
-              </div>
-              <b>{stat.value}</b>
+          <div className="stat-row">
+            <span>Fuerza</span>
+            <div className="stat-track">
+              <span style={{ width: `${hero.strength * 10}%` }} />
             </div>
-          ))}
+            <b>{hero.strength}</b>
+          </div>
+          <div className="stat-row">
+            <span>Velocidad</span>
+            <div className="stat-track">
+              <span style={{ width: `${hero.speed * 10}%` }} />
+            </div>
+            <b>{hero.speed}</b>
+          </div>
+          <div className="stat-row">
+            <span>Inteligencia</span>
+            <div className="stat-track">
+              <span style={{ width: `${hero.intelligence * 10}%` }} />
+            </div>
+            <b>{hero.intelligence}</b>
+          </div>
+          <div className="stat-row">
+            <span>Durabilidad</span>
+            <div className="stat-track">
+              <span style={{ width: `${hero.durability * 10}%` }} />
+            </div>
+            <b>{hero.durability}</b>
+          </div>
         </div>
-        <p className="card-description">{hero.description}</p>
-        <button className="card-link">
-          View profile <ArrowRight size={15} />
-        </button>
+        <div className="flex justify-between ">
+          <span className="card-description my-0! h-auto!">
+            Primera Aparición: {hero.firstAppearance}
+          </span>
+
+          <button className="card-link">
+            Ver perfil <ArrowRight size={15} />
+          </button>
+        </div>
       </CardContent>
     </Card>
   );
