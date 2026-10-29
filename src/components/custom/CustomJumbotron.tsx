@@ -11,9 +11,7 @@ export const CustomJumbotron = ({ title, description }: Props) => {
           <span /> REACT HEROES / 2026
         </p>
         <h1>
-          {title}
-          <br />
-          <em>Universo.</em>
+          {title} <em>Universo.</em>
         </h1>
         {description && <p className="intro-copy">{description}</p>}
       </div>

@@ -5,11 +5,11 @@ export const HeroStats = () => {
     <div className="toolbar-meta">
       <Users size={16} />
       <span>
-        <strong>04</strong> registered heroes
+        <strong>04</strong> Personajes registrados
       </span>
       <Star size={16} />
       <span>
-        <strong>00</strong> favorites
+        <strong>00</strong> Favoritos
       </span>
     </div>
   );
