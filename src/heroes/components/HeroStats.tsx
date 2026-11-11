@@ -1,14 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import { Star, Users } from "lucide-react";
-
-import { getSummaryAccion } from "../actions/get-summary.action";
+import { useHeroSummary } from "../hooks/useHeroSummary";
 
 export const HeroStats = () => {
-  const { data: summary } = useQuery({
-    queryKey: ["summary-information"],
-    queryFn: getSummaryAccion,
-    staleTime: 1000 * 60 * 5, //5min
-  });
+  const { data: summary } = useHeroSummary();
 
   return (
     <div className="toolbar-meta">
