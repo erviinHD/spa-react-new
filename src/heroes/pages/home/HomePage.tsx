@@ -22,8 +22,6 @@ export const HomePage = () => {
 
   const { data: heroesResponse } = usePaginatedHero(+page, +limit, category);
 
-  console.log({ heroesResponse });
-
   // useEffect(() => {
   //   getHeroesByPage().then();
   // }, []);
