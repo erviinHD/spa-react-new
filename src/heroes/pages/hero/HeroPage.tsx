@@ -42,8 +42,8 @@ export const HeroPage = () => {
           </div>
           <div className="profile-copy">
             <p className="section-kicker">
-              <span /> {heroResponse.category.toUpperCase()} / CLASSIFIED
-              PROFILE
+              <span /> {heroResponse.category.toUpperCase()} / {""}
+              {heroResponse.team.toUpperCase()}
             </p>
             <p className="profile-real-name">{heroResponse.name}</p>
             <h1>
