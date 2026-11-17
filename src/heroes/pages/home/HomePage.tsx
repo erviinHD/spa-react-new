@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { use, useMemo } from "react";
 import { useSearchParams } from "react-router";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -7,6 +7,7 @@ import { HeroStats } from "@/heroes/components/HeroStats";
 import { HeroGrid } from "@/heroes/components/HeroGrid";
 import { CustomPagination } from "@/components/custom/CustomPagination";
 import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero";
+import { FavoriteHeroContext } from "@/heroes/context/FavoriteHeroContext";
 
 export const HomePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -21,6 +22,7 @@ export const HomePage = () => {
   }, [activeTab]);
 
   const { data: heroesResponse } = usePaginatedHero(+page, +limit, category);
+  const { favorites } = use(FavoriteHeroContext);
 
   // useEffect(() => {
   //   getHeroesByPage().then();
@@ -45,6 +47,7 @@ export const HomePage = () => {
           <Tabs value={selectedTab}>
             <TabsList className="filters">
               <TabsTrigger
+                className={selectedTab == "all" ? "filter-active" : ""}
                 onClick={() =>
                   setSearchParams((prev) => {
                     prev.set("tab", "all");
@@ -58,6 +61,7 @@ export const HomePage = () => {
                 Todos los personajes
               </TabsTrigger>
               <TabsTrigger
+                className={selectedTab == "favorites" ? "filter-active" : ""}
                 onClick={() =>
                   setSearchParams((prev) => {
                     prev.set("tab", "favorites");
@@ -70,6 +74,7 @@ export const HomePage = () => {
                 Favoritos
               </TabsTrigger>
               <TabsTrigger
+                className={selectedTab == "heroes" ? "filter-active" : ""}
                 onClick={() =>
                   setSearchParams((prev) => {
                     prev.set("tab", "heroes");
@@ -83,6 +88,7 @@ export const HomePage = () => {
                 Heroes
               </TabsTrigger>
               <TabsTrigger
+                className={selectedTab == "villains" ? "filter-active" : ""}
                 onClick={() =>
                   setSearchParams((prev) => {
                     prev.set("tab", "villains");
@@ -100,7 +106,7 @@ export const HomePage = () => {
               <HeroGrid heroes={heroesResponse?.heroes ?? []} />
             </TabsContent>
             <TabsContent value="favorites">
-              <HeroGrid heroes={heroesResponse?.heroes ?? []} />
+              <HeroGrid heroes={favorites} />
             </TabsContent>
             <TabsContent value="heroes">
               <HeroGrid heroes={heroesResponse?.heroes ?? []} />
@@ -111,7 +117,9 @@ export const HomePage = () => {
           </Tabs>
         </div>
         {/* Pagination */}
-        <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
+        {selectedTab !== "favorites" && (
+          <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
+        )}
       </section>
     </>
   );

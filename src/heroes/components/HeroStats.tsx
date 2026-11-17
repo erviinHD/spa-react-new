@@ -1,9 +1,11 @@
+import { use } from "react";
 import { Star, Users } from "lucide-react";
 import { useHeroSummary } from "../hooks/useHeroSummary";
+import { FavoriteHeroContext } from "../context/FavoriteHeroContext";
 
 export const HeroStats = () => {
   const { data: summary } = useHeroSummary();
-
+  const { favoritecount } = use(FavoriteHeroContext);
   return (
     <div className="toolbar-meta">
       <Users size={16} />
@@ -12,7 +14,7 @@ export const HeroStats = () => {
       </span>
       <Star size={16} />
       <span>
-        <strong>00</strong> Favoritos
+        <strong>{favoritecount}</strong> Favoritos
       </span>
     </div>
   );

@@ -1,3 +1,4 @@
+import { use } from "react";
 import { useNavigate } from "react-router";
 
 import { ArrowRight, Heart } from "lucide-react";
@@ -5,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
 import type { Hero } from "../types/hero.interface";
+import { FavoriteHeroContext } from "../context/FavoriteHeroContext";
 
 interface Props {
   hero: Hero;
@@ -15,6 +17,7 @@ export const HeroGridCard = ({ hero }: Props) => {
   const handleClick = async () => {
     await navigate(`/heroes/${hero.slug}`);
   };
+  const { toggleFavorite, isFavorite } = use(FavoriteHeroContext);
 
   return (
     <Card className="hero-card group overflow-hidden rounded-none border-border/80 bg-card p-0">
@@ -37,8 +40,9 @@ export const HeroGridCard = ({ hero }: Props) => {
         <button
           className="favorite-button"
           aria-label={`Favorite ${hero.alias}`}
+          onClick={() => toggleFavorite(hero)}
         >
-          <Heart size={16} />
+          <Heart size={16} fill={`${isFavorite(hero) ? "#e54647" : ""}`} />
         </button>
         <div className="hero-card-copy">
           <h3>{hero.alias}</h3>
